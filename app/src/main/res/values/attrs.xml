@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="NavigationStatusBar">
+        <attr name="bg_color" format="color" />
+
+        <!-- Navigation status bar elements -->
+        <attr name="total_elements" format="integer" />
+        <attr name="clickable_elements" format="integer" />
+        <attr name="selected_element" format="integer" />
+
+        <!-- Colors for clickable and selected elements -->
+        <attr name="selected_bg_color" format="color" />
+        <attr name="selected_txt_color" format="color" />
+
+        <!-- Colors for clickable and not selected elements -->
+        <attr name="unselected_bg_color" format="color" />
+        <attr name="unselected_txt_color" format="color" />
+
+        <!-- Colors for not clickable elements -->
+        <attr name="not_clickable_bg_color" format="color" />
+        <attr name="not_clickable_txt_color" format="color" />
+
+        <attr name="style" format="integer" />
+    </declare-styleable>
+</resources>
