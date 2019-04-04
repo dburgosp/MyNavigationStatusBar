@@ -13,20 +13,33 @@
         android:layout_height="match_parent"
         android:layout_weight="1">
 
-        <View
-            android:id="@+id/left_line_1"
-            style="@style/LeftLineStyle"
-            android:layout_toStartOf="@id/circle_1" />
-
         <TextView
-            android:id="@+id/circle_1"
-            style="@style/CircleDisabledStyle"
+            android:id="@+id/text_1"
+            style="@style/TextDisabledStyle"
             tools:text="1" />
 
-        <View
-            android:id="@+id/right_line_1"
-            style="@style/RightLineStyle"
-            android:layout_toEndOf="@id/circle_1" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_1"
+            android:layout_alignParentBottom="true">
+
+            <View
+                android:id="@+id/left_line_1"
+                style="@style/LeftLineStyle"
+                android:layout_toStartOf="@id/circle_1" />
+
+            <TextView
+                android:id="@+id/circle_1"
+                style="@style/CircleDisabledStyle"
+                tools:text="1" />
+
+            <View
+                android:id="@+id/right_line_1"
+                style="@style/RightLineStyle"
+                android:layout_toEndOf="@id/circle_1" />
+        </RelativeLayout>
+
     </RelativeLayout>
 
     <RelativeLayout
@@ -35,20 +48,32 @@
         android:layout_height="match_parent"
         android:layout_weight="1">
 
-        <View
-            android:id="@+id/left_line_2"
-            style="@style/LeftLineStyle"
-            android:layout_toStartOf="@id/circle_2" />
-
         <TextView
-            android:id="@+id/circle_2"
-            style="@style/CircleDisabledStyle"
+            android:id="@+id/text_2"
+            style="@style/TextDisabledStyle"
             tools:text="2" />
 
-        <View
-            android:id="@+id/right_line_2"
-            style="@style/RightLineStyle"
-            android:layout_toEndOf="@id/circle_2" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_2"
+            android:layout_alignParentBottom="true">
+
+            <View
+                android:id="@+id/left_line_2"
+                style="@style/LeftLineStyle"
+                android:layout_toStartOf="@id/circle_2" />
+
+            <TextView
+                android:id="@+id/circle_2"
+                style="@style/CircleDisabledStyle"
+                tools:text="2" />
+
+            <View
+                android:id="@+id/right_line_2"
+                style="@style/RightLineStyle"
+                android:layout_toEndOf="@id/circle_2" />
+        </RelativeLayout>
     </RelativeLayout>
 
     <RelativeLayout
@@ -57,20 +82,32 @@
         android:layout_height="match_parent"
         android:layout_weight="1">
 
-        <View
-            android:id="@+id/left_line_3"
-            style="@style/LeftLineStyle"
-            android:layout_toStartOf="@id/circle_3" />
-
         <TextView
-            android:id="@+id/circle_3"
-            style="@style/CircleDisabledStyle"
+            android:id="@+id/text_3"
+            style="@style/TextDisabledStyle"
             tools:text="3" />
 
-        <View
-            android:id="@+id/right_line_3"
-            style="@style/RightLineStyle"
-            android:layout_toEndOf="@id/circle_3" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_3"
+            android:layout_alignParentBottom="true">
+
+            <View
+                android:id="@+id/left_line_3"
+                style="@style/LeftLineStyle"
+                android:layout_toStartOf="@id/circle_3" />
+
+            <TextView
+                android:id="@+id/circle_3"
+                style="@style/CircleDisabledStyle"
+                tools:text="3" />
+
+            <View
+                android:id="@+id/right_line_3"
+                style="@style/RightLineStyle"
+                android:layout_toEndOf="@id/circle_3" />
+        </RelativeLayout>
     </RelativeLayout>
 
     <RelativeLayout
@@ -79,20 +116,32 @@
         android:layout_height="match_parent"
         android:layout_weight="1">
 
-        <View
-            android:id="@+id/left_line_4"
-            style="@style/LeftLineStyle"
-            android:layout_toStartOf="@id/circle_4" />
-
         <TextView
-            android:id="@+id/circle_4"
-            style="@style/CircleDisabledStyle"
+            android:id="@+id/text_4"
+            style="@style/TextDisabledStyle"
             tools:text="4" />
 
-        <View
-            android:id="@+id/right_line_4"
-            style="@style/RightLineStyle"
-            android:layout_toEndOf="@id/circle_4" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_4"
+            android:layout_alignParentBottom="true">
+
+            <View
+                android:id="@+id/left_line_4"
+                style="@style/LeftLineStyle"
+                android:layout_toStartOf="@id/circle_4" />
+
+            <TextView
+                android:id="@+id/circle_4"
+                style="@style/CircleDisabledStyle"
+                tools:text="4" />
+
+            <View
+                android:id="@+id/right_line_4"
+                style="@style/RightLineStyle"
+                android:layout_toEndOf="@id/circle_4" />
+        </RelativeLayout>
     </RelativeLayout>
 
     <RelativeLayout
@@ -101,20 +150,32 @@
         android:layout_height="match_parent"
         android:layout_weight="1">
 
-        <View
-            android:id="@+id/left_line_5"
-            style="@style/LeftLineStyle"
-            android:layout_toStartOf="@id/circle_5" />
-
         <TextView
-            android:id="@+id/circle_5"
-            style="@style/CircleDisabledStyle"
+            android:id="@+id/text_5"
+            style="@style/TextDisabledStyle"
             tools:text="5" />
 
-        <View
-            android:id="@+id/right_line_5"
-            style="@style/RightLineStyle"
-            android:layout_toEndOf="@id/circle_5" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_5"
+            android:layout_alignParentBottom="true">
+
+            <View
+                android:id="@+id/left_line_5"
+                style="@style/LeftLineStyle"
+                android:layout_toStartOf="@id/circle_5" />
+
+            <TextView
+                android:id="@+id/circle_5"
+                style="@style/CircleDisabledStyle"
+                tools:text="5" />
+
+            <View
+                android:id="@+id/right_line_5"
+                style="@style/RightLineStyle"
+                android:layout_toEndOf="@id/circle_5" />
+        </RelativeLayout>
     </RelativeLayout>
 
     <RelativeLayout
@@ -123,20 +184,32 @@
         android:layout_height="match_parent"
         android:layout_weight="1">
 
-        <View
-            android:id="@+id/left_line_6"
-            style="@style/LeftLineStyle"
-            android:layout_toStartOf="@id/circle_6" />
-
         <TextView
-            android:id="@+id/circle_6"
-            style="@style/CircleDisabledStyle"
+            android:id="@+id/text_6"
+            style="@style/TextDisabledStyle"
             tools:text="6" />
 
-        <View
-            android:id="@+id/right_line_6"
-            style="@style/RightLineStyle"
-            android:layout_toEndOf="@id/circle_6" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_6"
+            android:layout_alignParentBottom="true">
+
+            <View
+                android:id="@+id/left_line_6"
+                style="@style/LeftLineStyle"
+                android:layout_toStartOf="@id/circle_6" />
+
+            <TextView
+                android:id="@+id/circle_6"
+                style="@style/CircleDisabledStyle"
+                tools:text="6" />
+
+            <View
+                android:id="@+id/right_line_6"
+                style="@style/RightLineStyle"
+                android:layout_toEndOf="@id/circle_6" />
+        </RelativeLayout>
     </RelativeLayout>
 
     <RelativeLayout
@@ -145,20 +218,32 @@
         android:layout_height="match_parent"
         android:layout_weight="1">
 
-        <View
-            android:id="@+id/left_line_7"
-            style="@style/LeftLineStyle"
-            android:layout_toStartOf="@id/circle_7" />
-
         <TextView
-            android:id="@+id/circle_7"
-            style="@style/CircleDisabledStyle"
+            android:id="@+id/text_7"
+            style="@style/TextDisabledStyle"
             tools:text="7" />
 
-        <View
-            android:id="@+id/right_line_7"
-            style="@style/RightLineStyle"
-            android:layout_toEndOf="@id/circle_7" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_7"
+            android:layout_alignParentBottom="true">
+
+            <View
+                android:id="@+id/left_line_7"
+                style="@style/LeftLineStyle"
+                android:layout_toStartOf="@id/circle_7" />
+
+            <TextView
+                android:id="@+id/circle_7"
+                style="@style/CircleDisabledStyle"
+                tools:text="7" />
+
+            <View
+                android:id="@+id/right_line_7"
+                style="@style/RightLineStyle"
+                android:layout_toEndOf="@id/circle_7" />
+        </RelativeLayout>
     </RelativeLayout>
 
     <RelativeLayout
@@ -167,19 +252,31 @@
         android:layout_height="match_parent"
         android:layout_weight="1">
 
-        <View
-            android:id="@+id/left_line_8"
-            style="@style/LeftLineStyle"
-            android:layout_toStartOf="@id/circle_8" />
-
         <TextView
-            android:id="@+id/circle_8"
-            style="@style/CircleDisabledStyle"
+            android:id="@+id/text_8"
+            style="@style/TextDisabledStyle"
             tools:text="8" />
 
-        <View
-            android:id="@+id/right_line_8"
-            style="@style/RightLineStyle"
-            android:layout_toEndOf="@id/circle_8" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_8"
+            android:layout_alignParentBottom="true">
+
+            <View
+                android:id="@+id/left_line_8"
+                style="@style/LeftLineStyle"
+                android:layout_toStartOf="@id/circle_8" />
+
+            <TextView
+                android:id="@+id/circle_8"
+                style="@style/CircleDisabledStyle"
+                tools:text="8" />
+
+            <View
+                android:id="@+id/right_line_8"
+                style="@style/RightLineStyle"
+                android:layout_toEndOf="@id/circle_8" />
+        </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>

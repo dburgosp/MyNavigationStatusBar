@@ -1,6 +1,7 @@
 package com.davidburgosprieto.mynavigationstatusbar;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
@@ -32,15 +33,23 @@ public class NavigationStatusBar extends LinearLayout {
 
     private Paint mPaint;
     private Rect mRect;
-    private int mBgColor, mSelectedTintColor, mSelectedTxtColor, mUnselectedTintColor,
-            mUnselectedTxtColor, mNotClickableTintColor, mNotClickableTxtColor, mStyle, mTotal,
+    private int mBgColor, mSelectedBgColor, mSelectedTxtColor, mUnselectedBgColor,
+            mUnselectedTxtColor, mNotClickableBgColor, mNotClickableTxtColor, mStyle, mTotal,
             mClickables, mSelected;
+    private ColorStateList mUnselectedTintColorStateList, mNotClickableTintColorStateList;
     private ArrayList<RelativeLayout> mLayouts;
     private ArrayList<TextView> mCircles;
     private ArrayList<View> mLeftLines;
     private ArrayList<View> mRightLines;
     private Resources mRes;
     private OnInteractionListener mListener;
+
+    private int[][] mStates = new int[][]{
+            new int[]{android.R.attr.state_enabled}, // enabled
+            new int[]{-android.R.attr.state_enabled}, // disabled
+            new int[]{-android.R.attr.state_checked}, // unchecked
+            new int[]{android.R.attr.state_pressed}  // pressed
+    };
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -119,23 +128,33 @@ public class NavigationStatusBar extends LinearLayout {
     }
 
     private void getAttributes(AttributeSet set) {
+        // Obtain a TypedArray with all elements defined in attrs.xml and initialise member
+        // variables with the values input through this TypedArray, also providing default values in
+        // case no value for that attribute was input by the user.
         TypedArray ta = getContext().obtainStyledAttributes(set, R.styleable.NavigationStatusBar);
-
         mBgColor = ta.getColor(R.styleable.NavigationStatusBar_bg_color, getResources().getColor(R.color.colorPrimaryDark));
         mTotal = ta.getInt(R.styleable.NavigationStatusBar_total_elements, MAX_ELEMENTS);
         mClickables = ta.getInt(R.styleable.NavigationStatusBar_clickable_elements, MAX_ELEMENTS);
         mSelected = ta.getInt(R.styleable.NavigationStatusBar_selected_element, 1);
-        mSelectedTintColor = ta.getColor(R.styleable.NavigationStatusBar_selected_bg_color, getResources().getColor(R.color.colorPrimaryDark));
+        mSelectedBgColor = ta.getColor(R.styleable.NavigationStatusBar_selected_bg_color, getResources().getColor(R.color.colorPrimaryDark));
         mSelectedTxtColor = ta.getColor(R.styleable.NavigationStatusBar_selected_txt_color, getResources().getColor(R.color.colorPrimaryDark));
-        mUnselectedTintColor = ta.getColor(R.styleable.NavigationStatusBar_unselected_bg_color, getResources().getColor(R.color.colorPrimaryDark));
+        mUnselectedBgColor = ta.getColor(R.styleable.NavigationStatusBar_unselected_bg_color, getResources().getColor(R.color.colorPrimaryDark));
         mUnselectedTxtColor = ta.getColor(R.styleable.NavigationStatusBar_unselected_txt_color, getResources().getColor(android.R.color.white));
-        mNotClickableTintColor = ta.getColor(R.styleable.NavigationStatusBar_not_clickable_bg_color, getResources().getColor(android.R.color.darker_gray));
+        mNotClickableBgColor = ta.getColor(R.styleable.NavigationStatusBar_not_clickable_bg_color, getResources().getColor(android.R.color.darker_gray));
         mNotClickableTxtColor = ta.getColor(R.styleable.NavigationStatusBar_not_clickable_txt_color, getResources().getColor(android.R.color.white));
         mStyle = ta.getInt(R.styleable.NavigationStatusBar_style, STYLE_STROKE);
+        ta.recycle();
+
+        // Set ColorStateList member variables from input colors.
+        mUnselectedTintColorStateList = new ColorStateList(mStates, new int[]{
+                mUnselectedBgColor, mUnselectedBgColor, mUnselectedBgColor, mUnselectedBgColor
+        });
+        mNotClickableTintColorStateList = new ColorStateList(mStates, new int[]{
+                mNotClickableBgColor, mNotClickableBgColor, mNotClickableBgColor, mNotClickableBgColor
+        });
 
         mPaint.setColor(mBgColor);
         reDraw();
-        ta.recycle();
     }
 
     private void setLayout(Context context) {
@@ -176,14 +195,14 @@ public class NavigationStatusBar extends LinearLayout {
 
                 if (i < mClickables) {
                     // Set colors for clickable elements.
-                    mCircles.get(i).setBackgroundTintList(mRes.getColorStateList(mUnselectedTintColor));
-                    mLeftLines.get(i).setBackgroundColor(mRes.getColor(mUnselectedTintColor));
+                    mCircles.get(i).setBackgroundTintList(mUnselectedTintColorStateList);
+                    mLeftLines.get(i).setBackgroundColor(mUnselectedBgColor);
                     if (i == mClickables - 1) {
                         // The line to the right of the last clickable element must be grayed.
-                        mRightLines.get(i).setBackgroundColor(mRes.getColor(mNotClickableTintColor));
+                        mRightLines.get(i).setBackgroundColor(mNotClickableBgColor);
                     } else {
                         // The line to the right of any clickable element but the last one must be colored.
-                        mRightLines.get(i).setBackgroundColor(mRes.getColor(mUnselectedTintColor));
+                        mRightLines.get(i).setBackgroundColor(mUnselectedBgColor);
                     }
 
                     // Set listeners on clickable elements.
@@ -201,10 +220,10 @@ public class NavigationStatusBar extends LinearLayout {
                     });
                 } else {
                     // Set colors for not clickable elements.
-                    mCircles.get(i).setBackgroundTintList(mRes.getColorStateList(mNotClickableTintColor));
-                    mCircles.get(i).setTextColor(mRes.getColorStateList(mNotClickableTxtColor));
-                    mLeftLines.get(i).setBackgroundColor(mRes.getColor(mNotClickableTintColor));
-                    mRightLines.get(i).setBackgroundColor(mRes.getColor(mNotClickableTintColor));
+                    mCircles.get(i).setBackgroundTintList(mNotClickableTintColorStateList);
+                    mCircles.get(i).setTextColor(mNotClickableTxtColor);
+                    mLeftLines.get(i).setBackgroundColor(mNotClickableBgColor);
+                    mRightLines.get(i).setBackgroundColor(mNotClickableBgColor);
                 }
 
                 // Set active element.
@@ -239,7 +258,7 @@ public class NavigationStatusBar extends LinearLayout {
         tv.setBackground(mRes.getDrawable(R.drawable.circle_selected));
 
         // Set text color.
-        tv.setTextColor(mRes.getColor(mSelectedTxtColor));
+        tv.setTextColor(mSelectedTxtColor);
 
         // Set width and height for selected circle.
         final ViewGroup.LayoutParams layoutParams = tv.getLayoutParams();
@@ -260,7 +279,7 @@ public class NavigationStatusBar extends LinearLayout {
         tv.setBackground(mRes.getDrawable(R.drawable.circle_unselected));
 
         // Set text color.
-        tv.setTextColor(mRes.getColor(mUnselectedTxtColor));
+        tv.setTextColor(mUnselectedTxtColor);
 
         // Set width and height for not selected circle.
         final ViewGroup.LayoutParams layoutParams = mCircles.get(i).getLayoutParams();

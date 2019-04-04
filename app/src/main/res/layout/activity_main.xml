@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".MainActivity">
 
     <com.davidburgosprieto.mynavigationstatusbar.NavigationStatusBar
@@ -11,10 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:clickable_elements="5"
-        app:selected_bg_color="@color/colorPrimaryDark"
+        app:selected_bg_color="#00FFff"
         app:selected_element="1"
-        app:selected_txt_color="@color/colorPrimaryDark"
+        app:selected_txt_color="#ff5855"
         app:total_elements="5"
-        app:unselected_bg_color="@color/colorPrimaryDark"
+        app:unselected_bg_color="#923456"
         app:unselected_txt_color="@color/white" />
 </RelativeLayout>
