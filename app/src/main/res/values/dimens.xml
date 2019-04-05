@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="circle_selected_size">50dp</dimen>
-    <dimen name="circle_unselected_size">30dp</dimen>
+    <dimen name="shape_selected_size">40dp</dimen>
+    <dimen name="shape_unselected_size">20dp</dimen>
 </resources>

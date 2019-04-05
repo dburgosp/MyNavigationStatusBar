@@ -8,18 +8,48 @@
         <attr name="clickable_elements" format="integer" />
         <attr name="selected_element" format="integer" />
 
-        <!-- Colors for clickable and selected elements -->
+        <!-- Colors and sizes for clickable and selected elements -->
         <attr name="selected_bg_color" format="color" />
         <attr name="selected_txt_color" format="color" />
+        <attr name="selected_inner_txt_size" format="integer" />
+        <attr name="selected_outer_txt_size" format="integer" />
+        <attr name="selected_shape_size" format="integer" />
+        <attr name="selected_shape_style" format="enum">
+            <enum name="solid" value="0" />
+            <enum name="stroke" value="1" />
+        </attr>
 
-        <!-- Colors for clickable and not selected elements -->
+        <!-- Colors and sizes for clickable and not selected elements -->
         <attr name="unselected_bg_color" format="color" />
         <attr name="unselected_txt_color" format="color" />
+        <attr name="unselected_inner_txt_size" format="integer" />
+        <attr name="unselected_outer_txt_size" format="integer" />
+        <attr name="unselected_shape_size" format="integer" />
+        <attr name="unselected_shape_style" format="enum">
+            <enum name="solid" value="0" />
+            <enum name="stroke" value="1" />
+        </attr>
+        <attr name="unselected_lines_color" format="color" />
 
-        <!-- Colors for not clickable elements -->
+        <!-- Colors and sizes for not clickable elements -->
         <attr name="not_clickable_bg_color" format="color" />
         <attr name="not_clickable_txt_color" format="color" />
+        <attr name="not_clickable_inner_txt_size" format="integer" />
+        <attr name="not_clickable_outer_txt_size" format="integer" />
+        <attr name="not_clickable_shape_size" format="integer" />
+        <attr name="not_clickable_shape_style" format="enum">
+            <enum name="solid" value="0" />
+            <enum name="stroke" value="1" />
+        </attr>
+        <attr name="not_clickable_lines_color" format="color" />
 
-        <attr name="style" format="integer" />
+        <!-- Shapes style -->
+        <attr name="shape_drawable" format="enum">
+            <enum name="circle" value="0" />
+            <enum name="rectangle" value="1" />
+        </attr>
+        
+        <!-- Lines width (also for stroke shapes) -->
+        <attr name="lines_width" format="integer" />
     </declare-styleable>
 </resources>
