@@ -10,7 +10,8 @@
 
         <!-- Colors and sizes for clickable and selected elements -->
         <attr name="selected_bg_color" format="color" />
-        <attr name="selected_txt_color" format="color" />
+        <attr name="selected_inner_txt_color" format="color" />
+        <attr name="selected_outer_txt_color" format="color" />
         <attr name="selected_inner_txt_size" format="integer" />
         <attr name="selected_outer_txt_size" format="integer" />
         <attr name="selected_shape_size" format="integer" />
@@ -21,7 +22,8 @@
 
         <!-- Colors and sizes for clickable and not selected elements -->
         <attr name="unselected_bg_color" format="color" />
-        <attr name="unselected_txt_color" format="color" />
+        <attr name="unselected_inner_txt_color" format="color" />
+        <attr name="unselected_outer_txt_color" format="color" />
         <attr name="unselected_inner_txt_size" format="integer" />
         <attr name="unselected_outer_txt_size" format="integer" />
         <attr name="unselected_shape_size" format="integer" />
@@ -33,7 +35,8 @@
 
         <!-- Colors and sizes for not clickable elements -->
         <attr name="not_clickable_bg_color" format="color" />
-        <attr name="not_clickable_txt_color" format="color" />
+        <attr name="not_clickable_inner_txt_color" format="color" />
+        <attr name="not_clickable_outer_txt_color" format="color" />
         <attr name="not_clickable_inner_txt_size" format="integer" />
         <attr name="not_clickable_outer_txt_size" format="integer" />
         <attr name="not_clickable_shape_size" format="integer" />
@@ -49,7 +52,7 @@
             <enum name="rectangle" value="1" />
         </attr>
         
-        <!-- Lines width (also for stroke shapes) -->
-        <attr name="lines_width" format="integer" />
+        <!-- Lines height (also for stroke shapes) -->
+        <attr name="lines_height" format="integer" />
     </declare-styleable>
 </resources>

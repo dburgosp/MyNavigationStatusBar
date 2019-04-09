@@ -31,6 +31,10 @@ public class NavigationStatusBar extends LinearLayout {
     public final int SHAPE_STYLE_SOLID = 0;
     public final int SHAPE_STYLE_STROKE = 1;
 
+    private final int STATE_NOT_SELECTED = 0;
+    private final int STATE_SELECTED = 1;
+    private final int STATE_NOT_CLICKABLE = 2;
+
     /* ************************ */
     /* Private member variables */
     /* ************************ */
@@ -38,12 +42,13 @@ public class NavigationStatusBar extends LinearLayout {
     private Paint mPaint;
     private Rect mRect;
     private int mBgColor, mTotal, mClickables, mSelected, mSelectedBgColor, mSelectedInnerTxtSize,
-            mSelectedOuterTxtSize, mSelectedTxtColor, mSelectedShapeStyle, mSelectedShapeSize,
-            mUnselectedBgColor, mUnselectedInnerTxtSize, mUnselectedOuterTxtSize,
-            mUnselectedTxtColor, mUnselectedShapeStyle, mUnselectedShapeSize, mUnselectedLinesColor,
-            mNotClickableBgColor, mNotClickableInnerTxtSize, mNotClickableOuterTxtSize,
-            mNotClickableTxtColor, mNotClickableShapeStyle, mNotClickableShapeSize,
-            mNotClickableLinesColor, mShapesDrawable, mLinesWidth;
+            mSelectedOuterTxtSize, mSelectedInnerTxtColor, mSelectedOuterTxtColor,
+            mSelectedShapeStyle, mSelectedShapeSize, mUnselectedBgColor, mUnselectedInnerTxtSize,
+            mUnselectedOuterTxtSize, mUnselectedInnerTxtColor, mUnselectedOuterTxtColor,
+            mUnselectedShapeStyle, mUnselectedShapeSize, mUnselectedLinesColor, mNotClickableBgColor,
+            mNotClickableInnerTxtSize, mNotClickableOuterTxtSize, mNotClickableInnerTxtColor,
+            mNotClickableOuterTxtColor, mNotClickableShapeStyle, mNotClickableShapeSize,
+            mNotClickableLinesColor, mShapesDrawable, mLinesHeight;
     private ColorStateList mUnselectedTintColorStateList, mSelectedTintColorStateList,
             mNotClickableTintColorStateList;
     private ArrayList<RelativeLayout> mElements;
@@ -140,7 +145,7 @@ public class NavigationStatusBar extends LinearLayout {
         int bgColorDefValue = getResources().getColor(R.color.colorPrimaryDark);
         int disabledBgColorDefValue = getResources().getColor(android.R.color.darker_gray);
         int txtSizeDefValue = 0;
-        int lineWidthDefValue = 4;
+        int lineHeightDefValue = 4;
         int shapeSizeDefValue = 30;
 
         // Obtain a TypedArray with all elements defined in attrs.xml and initialise member
@@ -149,34 +154,44 @@ public class NavigationStatusBar extends LinearLayout {
         TypedArray ta = getContext().obtainStyledAttributes(set, R.styleable.NavigationStatusBar);
 
         mBgColor = ta.getColor(R.styleable.NavigationStatusBar_bg_color, bgColorDefValue);
+
         mTotal = ta.getInt(R.styleable.NavigationStatusBar_total_elements, MAX_ELEMENTS);
         mTotal = mTotal > MAX_ELEMENTS ? MAX_ELEMENTS : mTotal;
+
         mClickables = ta.getInt(R.styleable.NavigationStatusBar_clickable_elements, MAX_ELEMENTS);
         mClickables = mClickables > MAX_ELEMENTS ? MAX_ELEMENTS : mClickables;
+
         mSelected = ta.getInt(R.styleable.NavigationStatusBar_selected_element, 1);
         mSelected = mSelected > mClickables ? mClickables : mSelected;
+
         mSelectedBgColor = ta.getColor(R.styleable.NavigationStatusBar_selected_bg_color, bgColorDefValue);
-        mSelectedTxtColor = ta.getColor(R.styleable.NavigationStatusBar_selected_txt_color, bgColorDefValue);
+        mSelectedInnerTxtColor = ta.getColor(R.styleable.NavigationStatusBar_selected_inner_txt_color, bgColorDefValue);
+        mSelectedOuterTxtColor = ta.getColor(R.styleable.NavigationStatusBar_selected_outer_txt_color, bgColorDefValue);
         mSelectedInnerTxtSize = ta.getInt(R.styleable.NavigationStatusBar_selected_inner_txt_size, txtSizeDefValue);
         mSelectedOuterTxtSize = ta.getInt(R.styleable.NavigationStatusBar_selected_outer_txt_size, txtSizeDefValue);
         mSelectedShapeStyle = ta.getInt(R.styleable.NavigationStatusBar_selected_shape_style, SHAPE_STYLE_SOLID);
         mSelectedShapeSize = ta.getInt(R.styleable.NavigationStatusBar_selected_shape_size, shapeSizeDefValue);
+
         mUnselectedBgColor = ta.getColor(R.styleable.NavigationStatusBar_unselected_bg_color, bgColorDefValue);
-        mUnselectedTxtColor = ta.getColor(R.styleable.NavigationStatusBar_unselected_txt_color, bgColorDefValue);
+        mUnselectedInnerTxtColor = ta.getColor(R.styleable.NavigationStatusBar_unselected_inner_txt_color, bgColorDefValue);
+        mUnselectedOuterTxtColor = ta.getColor(R.styleable.NavigationStatusBar_unselected_outer_txt_color, bgColorDefValue);
         mUnselectedInnerTxtSize = ta.getInt(R.styleable.NavigationStatusBar_unselected_inner_txt_size, txtSizeDefValue);
         mUnselectedOuterTxtSize = ta.getInt(R.styleable.NavigationStatusBar_unselected_outer_txt_size, txtSizeDefValue);
         mUnselectedShapeStyle = ta.getInt(R.styleable.NavigationStatusBar_unselected_shape_style, SHAPE_STYLE_SOLID);
         mUnselectedShapeSize = ta.getInt(R.styleable.NavigationStatusBar_unselected_shape_size, shapeSizeDefValue);
         mUnselectedLinesColor = ta.getColor(R.styleable.NavigationStatusBar_unselected_lines_color, bgColorDefValue);
+
         mNotClickableBgColor = ta.getColor(R.styleable.NavigationStatusBar_not_clickable_bg_color, disabledBgColorDefValue);
-        mNotClickableTxtColor = ta.getColor(R.styleable.NavigationStatusBar_not_clickable_txt_color, disabledBgColorDefValue);
+        mNotClickableInnerTxtColor = ta.getColor(R.styleable.NavigationStatusBar_not_clickable_inner_txt_color, disabledBgColorDefValue);
+        mNotClickableOuterTxtColor = ta.getColor(R.styleable.NavigationStatusBar_not_clickable_outer_txt_color, disabledBgColorDefValue);
         mNotClickableInnerTxtSize = ta.getInt(R.styleable.NavigationStatusBar_not_clickable_inner_txt_size, txtSizeDefValue);
         mNotClickableOuterTxtSize = ta.getInt(R.styleable.NavigationStatusBar_not_clickable_outer_txt_size, txtSizeDefValue);
         mNotClickableShapeStyle = ta.getInt(R.styleable.NavigationStatusBar_not_clickable_shape_style, SHAPE_STYLE_SOLID);
         mNotClickableShapeSize = ta.getInt(R.styleable.NavigationStatusBar_not_clickable_shape_size, shapeSizeDefValue);
         mNotClickableLinesColor = ta.getColor(R.styleable.NavigationStatusBar_not_clickable_lines_color, bgColorDefValue);
+
         mShapesDrawable = ta.getInt(R.styleable.NavigationStatusBar_shape_drawable, SHAPE_DRAWABLE_OVAL);
-        mLinesWidth = ta.getInt(R.styleable.NavigationStatusBar_lines_width, lineWidthDefValue);
+        mLinesHeight = ta.getInt(R.styleable.NavigationStatusBar_lines_height, lineHeightDefValue);
 
         ta.recycle();
 
@@ -210,20 +225,9 @@ public class NavigationStatusBar extends LinearLayout {
      * @return the float value of pixels corresponding to the given sp value.
      */
     private float sp2px(int sp) {
-        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, (float) sp, mRes.getDisplayMetrics());
-    }
-
-    private GradientDrawable setShapeStyle(int style, ColorStateList colorStateList) {
-        GradientDrawable shape = new GradientDrawable();
-        switch (style) {
-            case SHAPE_STYLE_STROKE:
-                shape.setStroke((int) dp2px(mLinesWidth), mLinesColor);
-
-            case SHAPE_STYLE_SOLID:
-            default:
-                shape.setColor(colorStateList);
-        }
-        return shape;
+        return (float) sp;
+        //return sp * mRes.getDisplayMetrics().scaledDensity;
+        //return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, (float) sp, mRes.getDisplayMetrics());
     }
 
     private void setLayout(Context context) {
@@ -249,26 +253,24 @@ public class NavigationStatusBar extends LinearLayout {
             int elementResId = mRes.getIdentifier("element_" + (i + 1), type, pkg);
             mElements.add(i, (RelativeLayout) findViewById(elementResId));
 
+            // Set outer numbers.
+            int numberResId = mRes.getIdentifier("text_" + (i + 1), type, pkg);
+            mOuterNumbers.add(i, (TextView) findViewById(numberResId));
+
             // Set visible elements.
             if (i < mTotal) {
                 // Set shapes.
                 int shapeResId = mRes.getIdentifier("shape_" + (i + 1), type, pkg);
                 mShapes.add(i, (TextView) findViewById(shapeResId));
-                GradientDrawable shape = new GradientDrawable();
                 switch (mShapesDrawable) {
                     case SHAPE_DRAWABLE_RECTANGLE:
-                        shape.setShape(GradientDrawable.RECTANGLE);
+                        mShapes.get(i).setBackground(mRes.getDrawable(R.drawable.shape_rectangle, null));
                         break;
 
                     case SHAPE_DRAWABLE_OVAL:
                     default:
-                        shape.setShape(GradientDrawable.OVAL);
+                        mShapes.get(i).setBackground(mRes.getDrawable(R.drawable.shape_circle, null));
                 }
-                mShapes.get(i).setBackground(shape);
-
-                // Set outer numbers.
-                int numberResId = mRes.getIdentifier("text_" + (i + 1), type, pkg);
-                mOuterNumbers.add(i, (TextView) findViewById(numberResId));
 
                 // Set lines.
                 int leftLineResId = mRes.getIdentifier("left_line_" + (i + 1), type, pkg);
@@ -276,16 +278,37 @@ public class NavigationStatusBar extends LinearLayout {
                 mLeftLines.add(i, findViewById(leftLineResId));
                 mRightLines.add(i, findViewById(rightLineResId));
 
+                RelativeLayout.LayoutParams layoutParams =
+                        (RelativeLayout.LayoutParams) (mLeftLines.get(i).getLayoutParams());
+                layoutParams.width = 0;
+                layoutParams.height = (int) dp2px(mLinesHeight);
+                mLeftLines.get(i).setLayoutParams(layoutParams);
+
+                layoutParams =
+                        (RelativeLayout.LayoutParams) (mRightLines.get(i).getLayoutParams());
+                layoutParams.width = 0;
+                layoutParams.height = (int) dp2px(mLinesHeight);
+                mRightLines.get(i).setLayoutParams(layoutParams);
+
                 if (i < mClickables) {
                     // Set colors for clickable elements.
                     mShapes.get(i).setBackgroundTintList(mUnselectedTintColorStateList);
-                    mLeftLines.get(i).setBackgroundColor(mUnselectedBgColor);
-                    if (i == mClickables - 1) {
-                        // The line to the right of the last clickable element must be grayed.
-                        mRightLines.get(i).setBackgroundColor(mNotClickableBgColor);
+                    mLeftLines.get(i).setBackgroundColor(mUnselectedLinesColor);
+                    if (i == (mClickables - 1)) {
+                        // The line to the right of the last clickable element must have "not
+                        // clickable" style.
+                        mRightLines.get(i).setBackgroundColor(mNotClickableLinesColor);
                     } else {
-                        // The line to the right of any clickable element but the last one must be colored.
-                        mRightLines.get(i).setBackgroundColor(mUnselectedBgColor);
+                        // The line to the right of any clickable element but the last one must have
+                        // "unselected" style.
+                        mRightLines.get(i).setBackgroundColor(mUnselectedLinesColor);
+                    }
+
+                    // Set style for clickable elements, depending on whether it is selected or not.
+                    if (i == (mSelected - 1)) {
+                        setItem(i, STATE_SELECTED);
+                    } else {
+                        setItem(i, STATE_NOT_SELECTED);
                     }
 
                     // Set listeners on clickable elements.
@@ -293,35 +316,40 @@ public class NavigationStatusBar extends LinearLayout {
                     mShapes.get(i).setOnClickListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            setNotSelected(mSelected - 1);
-                            setSelected(index);
-                            mSelected = index + 1;
                             if (mListener != null) {
-                                mListener.onInteraction(index + 1);
+                                // Unselect current selected item and select clicked item.
+                                //setNotSelected(mSelected - 1);
+                                setItem(mSelected - 1, STATE_NOT_SELECTED);
+                                //setSelected(index);
+                                setItem(index, STATE_SELECTED);
+
+                                // Update global selected item index.
+                                mSelected = index + 1;
+
+                                // Notify listener.
+                                mListener.onInteraction(mSelected);
                             }
                         }
                     });
                 } else {
-                    // Set colors for not clickable elements.
-                    mShapes.get(i).setBackgroundTintList(mNotClickableTintColorStateList);
-                    //mShapes.get(i).setTextColor(mNotClickableInnerTxtColor);
+                    // Set colors, sizes and styles for not clickable elements.
+                    setItem(i, STATE_NOT_CLICKABLE);
+/*                    mShapes.get(i).setBackgroundTintList(mNotClickableTintColorStateList);
+                    mShapes.get(i).setTextColor(mNotClickableInnerTxtColor);
                     mLeftLines.get(i).setBackgroundColor(mNotClickableBgColor);
                     mRightLines.get(i).setBackgroundColor(mNotClickableBgColor);
-                }
-
-                // Set active element.
-                if (i == mSelected - 1) {
-                    setSelected(i);
-                } else {
-                    setNotSelected(i);
+                    mOuterNumbers.get(i).setTextColor(mNotClickableOuterTxtColor);*/
                 }
 
                 // Set visibility.
                 mElements.get(i).setVisibility(View.VISIBLE);
                 if (mSelectedOuterTxtSize > 0 || mUnselectedOuterTxtSize > 0 ||
                         mNotClickableOuterTxtSize > 0) {
-                    // Outer TextViews must be
+                    // Outer TextViews must be visible only if any of their text sizes is greater
+                    // than 0.
                     mOuterNumbers.get(i).setVisibility(View.VISIBLE);
+                } else {
+                    mOuterNumbers.get(i).setVisibility(View.GONE);
                 }
             } else {
                 // Elements beyond mTotal must not be visible.
@@ -338,74 +366,86 @@ public class NavigationStatusBar extends LinearLayout {
     /**
      * Set style for selected element.
      *
-     * @param i is the index of the element in the global arrays of elements.
+     * @param i     is the index of the element in the global arrays of elements.
+     * @param state is the index of the element in the global arrays of elements.
      */
-    private void setSelected(int i) {
+    private void setItem(int i, int state) {
+        int innerTxtSize, innerTxtColor, outerTxtSize, outerTxtColor, shapeSize, shapeStyle,
+                linesColor;
+        ColorStateList colorStateList;
         TextView shapeTextView = mShapes.get(i);
         TextView numberTextView = mOuterNumbers.get(i);
-
-        // Set background for selected shape.
-        shapeTextView.setBackground(mRes.getDrawable(R.drawable.circle_selected));
-
-        // Set text if required.
         String text = Integer.toString(i + 1);
-        if (mSelectedInnerTxtSize > 0) {
-            shapeTextView.setText(text);
-            shapeTextView.setTextSize(sp2px(mSelectedInnerTxtSize));
-            shapeTextView.setTextColor(mSelectedTxtColor);
+
+        switch (state) {
+            case STATE_SELECTED:
+                innerTxtSize = mSelectedInnerTxtSize;
+                innerTxtColor = mSelectedInnerTxtColor;
+                outerTxtSize = mSelectedOuterTxtSize;
+                outerTxtColor = mSelectedOuterTxtColor;
+                shapeSize = mSelectedShapeSize;
+                shapeStyle = mSelectedShapeStyle;
+                linesColor = mUnselectedLinesColor;
+                colorStateList = mSelectedTintColorStateList;
+
+                // Update global selected item index.
+                mSelected = i + 1;
+                break;
+
+            case STATE_NOT_SELECTED:
+                innerTxtSize = mUnselectedInnerTxtSize;
+                innerTxtColor = mUnselectedInnerTxtColor;
+                outerTxtSize = mUnselectedOuterTxtSize;
+                outerTxtColor = mUnselectedOuterTxtColor;
+                shapeSize = mUnselectedShapeSize;
+                shapeStyle = mUnselectedShapeStyle;
+                linesColor = mUnselectedLinesColor;
+                colorStateList = mUnselectedTintColorStateList;
+                break;
+
+            case STATE_NOT_CLICKABLE:
+            default:
+                innerTxtSize = mNotClickableInnerTxtSize;
+                innerTxtColor = mNotClickableInnerTxtColor;
+                outerTxtSize = mNotClickableOuterTxtSize;
+                outerTxtColor = mNotClickableOuterTxtColor;
+                shapeSize = mNotClickableShapeSize;
+                shapeStyle = mNotClickableShapeStyle;
+                linesColor = mNotClickableLinesColor;
+                colorStateList = mNotClickableTintColorStateList;
+                break;
         }
-        if (mSelectedOuterTxtSize > 0) {
+
+        // Set inner text if required.
+        if (innerTxtSize > 0) {
+            shapeTextView.setText(text);
+            shapeTextView.setTextSize(sp2px(innerTxtSize));
+            shapeTextView.setTextColor(innerTxtColor);
+        } else {
+            shapeTextView.setText("");
+        }
+
+        // Set outer text if required.
+        if (outerTxtSize > 0) {
             numberTextView.setText(text);
-            numberTextView.setTextSize(sp2px(mSelectedOuterTxtSize));
-            numberTextView.setTextColor(mSelectedTxtColor);
+            numberTextView.setTextSize(sp2px(outerTxtSize));
+            numberTextView.setTextColor(outerTxtColor);
         } else {
             numberTextView.setText("");
         }
 
         // Set width and height for selected shape.
         final ViewGroup.LayoutParams layoutParams = shapeTextView.getLayoutParams();
-        layoutParams.width = mSelectedShapeSize;
-        layoutParams.height = mSelectedShapeSize;
+        layoutParams.width = shapeSize;
+        layoutParams.height = shapeSize;
         shapeTextView.setLayoutParams(layoutParams);
 
         // Set background shape.
-        shapeTextView.setBackground(setShapeStyle(mSelectedShapeStyle, mSelectedTintColorStateList));
-    }
-
-    /**
-     * Set style for not selected element.
-     *
-     * @param i is the index of the element in the global arrays of elements.
-     */
-    private void setNotSelected(int i) {
-        TextView shape = mShapes.get(i);
-        TextView numberTextView = mOuterNumbers.get(i);
-
-        // Set background for not selected shape.
-        shape.setBackground(mRes.getDrawable(R.drawable.circle_unselected));
-
-        // Set text if required.
-        String text = Integer.toString(i + 1);
-        if (mUnselectedInnerTxtSize > 0) {
-            shape.setText(text);
-            shape.setTextSize(sp2px(mUnselectedInnerTxtSize));
-            shape.setTextColor(mUnselectedTxtColor);
+        GradientDrawable shapeBg = (GradientDrawable) shapeTextView.getBackground();
+        if (shapeStyle == SHAPE_STYLE_STROKE) {
+            shapeBg.setStroke((int) dp2px(mLinesHeight), linesColor);
         }
-        if (mUnselectedOuterTxtSize > 0) {
-            numberTextView.setText(text);
-            numberTextView.setTextSize(sp2px(mUnselectedOuterTxtSize));
-            numberTextView.setTextColor(mUnselectedTxtColor);
-        } else {
-            numberTextView.setText("");
-        }
-
-        // Set width and height for not selected shape.
-        final ViewGroup.LayoutParams layoutParams = mShapes.get(i).getLayoutParams();
-        layoutParams.width = mUnselectedShapeSize;
-        layoutParams.height = mUnselectedShapeSize;
-        mShapes.get(i).setLayoutParams(layoutParams);
-
-        // Set background shape.
-        shape.setBackground(setShapeStyle(mUnselectedShapeStyle, mUnselectedTintColorStateList));
+        shapeBg.setColor(colorStateList);
+        shapeTextView.setBackground(shapeBg);
     }
 }
